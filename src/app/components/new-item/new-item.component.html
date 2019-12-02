@@ -1,0 +1,16 @@
+<div class="new-item">
+  <input
+    type="text"
+    class="new-item__input"
+    placeholder="New item..."
+    [(ngModel)]="name"
+    (keyup.enter)="onAddClick()"
+  >
+  <button
+    type="button"
+    class="new-item__add-button"
+    (click)="onAddClick()"
+  >
+    Add
+  </button>
+</div>

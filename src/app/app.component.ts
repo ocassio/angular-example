@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'first-angular-app';
+
+  items: string[] = [];
+
+  addNewItem(name: string): void {
+    this.items.unshift(name);
+  }
+
+  deleteItem(index: number): void {
+    this.items.splice(index, 1);
+  }
+
 }
