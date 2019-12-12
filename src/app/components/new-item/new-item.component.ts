@@ -1,4 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { ItemModel } from 'src/app/models/item.model';
+import { ItemsService } from 'src/app/services/items.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'new-item',
@@ -7,16 +10,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class NewItemComponent {
 
-  @Output()
-  add = new EventEmitter<string>();
+  constructor(private router: Router,
+              private itemsService: ItemsService) {
+  }
 
-  name: string;
-
-  onAddClick(): void {
-    if (this.name.trim()) {
-      this.add.emit(this.name);
-      this.name = '';
-    }
+  add(item: ItemModel): void {
+    this.itemsService.addItem(item).subscribe(() => {
+      this.router.navigate(['/items']);
+    });
   }
 
 }

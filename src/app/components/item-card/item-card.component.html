@@ -1,12 +1,12 @@
 <div class="ui card">
   <i class="ui close icon" (click)="onDelete()"></i>
-  <a class="ui image" href="#">
+  <a class="ui image" [routerLink]="'/items/' + item.id">
     <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
   </a>
   <div class="content">
-    <a class="header" href="#">{{ name }}</a>
+    <a class="header" [routerLink]="'/items/' + item.id">{{ item.name }}</a>
     <div class="meta">
-      <a>Additional info</a>
+      {{ item.id }}
     </div>
   </div>
 </div>

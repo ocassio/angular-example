@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from "rxjs/operators";
+import uuid from 'uuid/v1'
+import { ItemModel } from '../models/item.model';
 
 const DELAY_TIME = 1000;
 
@@ -9,19 +11,36 @@ const DELAY_TIME = 1000;
 })
 export class ItemsService {
 
-  items: string[] = ['Test 1', 'Test 2'];
+  private items: ItemModel[] = [
+    {
+      id: uuid(),
+      name: 'Vasya'
+    },
+    {
+      id: uuid(),
+      name: 'Petya'
+    }
+  ];
 
-  getItems(search: string = ''): Observable<string[]> {
-    const items = this.items.filter(item => item.toLowerCase().includes(search.toLowerCase()));
+  getItems(search: string = ''): Observable<ItemModel[]> {
+    const items = this.items.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
     return of(items).pipe(delay(DELAY_TIME));
   }
 
-  addItem(item: string): Observable<void> {
-    this.items.push(item);
+  getItem(id: string): Observable<ItemModel> {
+    const item = this.items.find(item => item.id === id);
+    return of(item).pipe(delay(DELAY_TIME));
+  }
+
+  addItem(item: ItemModel): Observable<void> {
+    this.items.push({
+      id: uuid(),
+      ...item
+    });
     return of(null).pipe(delay(DELAY_TIME));
   }
 
-  deleteItem(index: number): void {
-    this.items.splice(index, 1);
+  deleteItem(id: string): void {
+    this.items = this.items.filter(item => item.id !== id);
   }
 }

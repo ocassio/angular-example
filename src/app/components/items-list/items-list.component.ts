@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ItemsService } from 'src/app/services/items.service';
 import { ActivatedRoute } from '@angular/router';
 import { Unsubscribable } from 'rxjs';
+import { ItemModel } from 'src/app/models/item.model';
 
 @Component({
   selector: 'items-list',
@@ -10,7 +11,7 @@ import { Unsubscribable } from 'rxjs';
 export class ItemsListComponent implements OnInit, OnDestroy {
 
   loading = true;
-  items: string[];
+  items: ItemModel[];
 
   private search: string;
 
@@ -31,8 +32,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  deleteItem(index: number) {
-    this.itemsService.deleteItem(index);
+  deleteItem(id: string) {
+    this.itemsService.deleteItem(id);
     this.loadItems(this.search);
   }
 

@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ItemModel } from 'src/app/models/item.model';
 
 @Component({
   selector: 'item-card',
@@ -8,7 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ItemCardComponent {
 
   @Input()
-  name: string;
+  item: ItemModel;
 
   @Output()
   delete = new EventEmitter<void>();
