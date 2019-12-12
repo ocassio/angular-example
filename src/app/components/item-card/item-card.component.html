@@ -1,4 +1,12 @@
-<div class="item-card">
-  <div class="item-card__name">{{ name }}</div>
-  <div class="item-card__delete-button" (click)="onDelete()"></div>
+<div class="ui card">
+  <i class="ui close icon" (click)="onDelete()"></i>
+  <a class="ui image" href="#">
+    <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
+  </a>
+  <div class="content">
+    <a class="header" href="#">{{ name }}</a>
+    <div class="meta">
+      <a>Additional info</a>
+    </div>
+  </div>
 </div>

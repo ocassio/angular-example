@@ -1,0 +1,9 @@
+<div class="ui grid">
+    <ng-container *ngIf="items">
+      <item-card *ngFor="let item of items; let i = index" [name]="item" (delete)="deleteItem(i)">
+      </item-card>
+    </ng-container>
+    <div *ngIf="loading" class="ui active iverted dimmer">
+      <div class="ui loader"></div>
+    </div>
+</div>
