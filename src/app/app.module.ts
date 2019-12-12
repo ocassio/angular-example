@@ -11,11 +11,13 @@ import { ItemsListComponent } from "./components/items-list/items-list.component
 import { ItemDetailsComponent } from './components/item-details/item-details.component';
 import { TheHeaderComponent } from './components/the-header/the-header.component';
 import { ViewItemDetailsComponent } from './components/view-item-details/view-item-details.component';
+import { LocalStorageGuard } from './guards/local-storage.guard';
 
 const routes: Routes = [
   {
     path: 'items/new',
-    component: NewItemComponent
+    component: NewItemComponent,
+    canActivate: [LocalStorageGuard]
   },
   {
     path: 'items/:id',
