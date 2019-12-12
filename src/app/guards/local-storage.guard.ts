@@ -12,7 +12,7 @@ export class LocalStorageGuard implements CanActivate {
         if (!forbidAddition) {
             return true;
         }
-        
-        return JSON.parse(forbidAddition);
+
+        return !JSON.parse(forbidAddition);
     }
 }
