@@ -1,11 +1,6 @@
 <div class="app">
-  <new-item (add)="addNewItem($event)"></new-item>
-  <div class="app__items">
-    <item-card
-      *ngFor="let item of items; let i = index"
-      [name]="item"
-      (delete)="deleteItem(i)"
-    >
-    </item-card>
+  <the-header></the-header>
+  <div class="ui middle aligned stackable grid container content">
+      <router-outlet></router-outlet>
   </div>
 </div>

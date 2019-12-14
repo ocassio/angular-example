@@ -1,0 +1,13 @@
+<div class="ui grid">
+    <ng-container *ngIf="items">
+      <item-card
+        *ngFor="let item of items"
+        [item]="item"
+        (delete)="deleteItem(item.id)"
+      >
+      </item-card>
+    </ng-container>
+    <div *ngIf="loading" class="ui active iverted dimmer">
+      <div class="ui loader"></div>
+    </div>
+</div>
