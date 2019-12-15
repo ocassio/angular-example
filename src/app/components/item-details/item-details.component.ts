@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ItemModel } from 'src/app/models/item.model';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { luhnValidator } from 'src/app/validators/luhn.validator';
 
 @Component({
   selector: 'item-details',
@@ -8,19 +10,59 @@ import { ItemModel } from 'src/app/models/item.model';
 export class ItemDetailsComponent {
 
   @Input()
-  item: ItemModel = {
-    name: ''
-  };
+  set item(value: ItemModel) {
+    this.form.patchValue(value);
+  }
 
   @Input()
-  readonly: boolean = false;
+  set readonly(value: boolean) {
+    if (value) {
+      this.form.disable();
+    } else {
+      this.form.enable();
+    }
+  }
 
   @Output()
   submitItem = new EventEmitter<ItemModel>();
 
+  form: FormGroup = this.formBuilder.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    address: this.formBuilder.group({
+      streetAddress: ['', Validators.required],
+      apt: ['']
+    }),
+    billing: this.formBuilder.group({
+      cardNumber: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(16),
+        Validators.maxLength(16),
+        luhnValidator
+      ])],
+      cardType: ['', Validators.required],
+      cvc: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(3)
+      ])],
+      expiration: this.formBuilder.group({
+        month: ['', Validators.required],
+        year: ['', Validators.required]
+      })
+    })
+  });
+
+  get cardNumber(): AbstractControl {
+    return this.form.get('billing').get('cardNumber');
+  }
+
+  constructor(private formBuilder: FormBuilder) {
+  }
+
   onSubmit(): void {
-    if (this.item.name.trim()) {
-      this.submitItem.emit(this.item);
+    if (this.form.valid) {
+      this.submitItem.emit(this.form.getRawValue());
     }
   }
 
