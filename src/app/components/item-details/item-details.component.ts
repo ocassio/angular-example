@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ItemModel } from 'src/app/models/item.model';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { luhnValidator } from 'src/app/validators/luhn.validator';
+import { expirationDateValidator } from 'src/app/validators/expiration-date.validator';
 
 @Component({
   selector: 'item-details',
@@ -49,6 +50,8 @@ export class ItemDetailsComponent {
       expiration: this.formBuilder.group({
         month: ['', Validators.required],
         year: ['', Validators.required]
+      }, {
+        validators: expirationDateValidator
       })
     })
   });

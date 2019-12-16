@@ -6,5 +6,5 @@ export interface ItemModel {
   firstName: string;
   lastName: string;
   address: AddressModel;
-  billing: BillingInformationModel
+  billing: BillingInformationModel;
 }
