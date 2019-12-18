@@ -1,12 +1,72 @@
 <div class="ui container">
-    <form class="ui form">
-        <h3 class="ui dividing header">Item info</h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="ui form">
+    <h4 class="ui dividing header">General Information</h4>
+    <div class="field">
+      <label>Name</label>
+      <div class="two fields">
         <div class="field">
-            <label>Name</label>
-            <input type="text" name="name" placeholder="Name" [(ngModel)]="item.name">
+          <input formControlName="firstName" type="text" placeholder="First Name">
         </div>
-        <button *ngIf="!readonly" class="ui button primary" type="button" (click)="onSubmit()">
-            Submit
-        </button>
-    </form>
+        <div class="field">
+          <input formControlName="lastName" type="text" placeholder="Last Name">
+        </div>
+      </div>
+    </div>
+    <div formGroupName="address" class="field">
+      <label>Address</label>
+      <div class="fields">
+        <div class="twelve wide field">
+          <input formControlName="streetAddress" type="text" placeholder="Street Address">
+        </div>
+        <div class="four wide field">
+          <input formControlName="apt" type="text" placeholder="Apt #">
+        </div>
+      </div>
+    </div>
+    <h4 class="ui dividing header">Billing Information</h4>
+    <div formGroupName="billing">
+      <div class="field">
+        <label>Card Type</label>
+        <select formControlName="cardType" class="ui fluid search dropdown">
+          <option value="visa">Visa</option>
+          <option value="mastercard">Mastercard</option>
+        </select>
+      </div>
+      <div class="fields">
+        <div class="seven wide field" [ngClass]="{ error: cardNumber.touched && cardNumber.invalid }">
+          <label>Card Number</label>
+          <input formControlName="cardNumber" type="text" maxlength="16" placeholder="Card #">
+        </div>
+        <div class="three wide field">
+          <label>CVC</label>
+          <input formControlName="cvc" type="text" maxlength="3" placeholder="CVC">
+        </div>
+        <div formGroupName="expiration" class="six wide field">
+          <label>Expiration</label>
+          <div class="two fields">
+            <div class="field">
+              <select formControlName="month" class="ui fluid search dropdown">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+            <div class="field">
+              <input formControlName="year" type="text" maxlength="4" placeholder="Year">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="form.enabled" [disabled]="form.invalid" type="submit" class="ui button primary" tabindex="0">Submit</button>
+  </form>
 </div>

@@ -7,14 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  items: string[] = [];
-
-  addNewItem(name: string): void {
-    this.items.unshift(name);
-  }
-
-  deleteItem(index: number): void {
-    this.items.splice(index, 1);
-  }
-
 }

@@ -4,9 +4,10 @@
     <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
   </a>
   <div class="content">
-    <a class="header" [routerLink]="'/items/' + item.id">{{ item.name }}</a>
+    <a class="header" [routerLink]="'/items/' + item.id">{{ item.firstName }} {{ item.lastName }}</a>
     <div class="meta">
-      {{ item.id }}
+      {{ item.address.streetAddress }}
+      {{ item.address.apt }}
     </div>
   </div>
 </div>
