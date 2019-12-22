@@ -23,7 +23,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.route.queryParamMap.subscribe(params => {
-      this.search = params.get('search') || '';
+      this.search = params.get('search');
       this.loadItems(this.search);
     });
   }
@@ -32,12 +32,13 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  deleteItem(id: string) {
-    this.itemsService.deleteItem(id);
-    this.loadItems(this.search);
+  deleteItem(id: string): void {
+    this.itemsService.deleteItem(id).subscribe(() => {
+      this.loadItems(this.search);
+    });
   }
 
-  private loadItems(search: string): void {
+  private loadItems(search?: string): void {
     this.loading = true;
     this.itemsService.getItems(search).subscribe(items => {
       this.items = items;
